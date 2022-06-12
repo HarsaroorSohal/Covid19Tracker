@@ -1,7 +1,6 @@
 package com.harsaroor.covid19.services;
 
 import com.harsaroor.covid19.models.CovidData;
-import com.harsaroor.covid19.repository.CovidDataRepository;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,22 +23,12 @@ public class CovidDataService {
     private String COVID_DATA_SOURCE = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_time_series/time_series_covid19_confirmed_global.csv";
     private List<CovidData> allData = new ArrayList<>(); //?what is an arraylist
 
-    @Autowired
-    private CovidDataRepository covidDataRepository;
-
-    public void addCovidData(CovidData covidData)
-    {
-        covidDataRepository.save(covidData);
-    }
-    public List<CovidData> getCovidData() {
-        List<CovidData> covidData = new ArrayList<>();
-        covidDataRepository.findAll().forEach( (t) -> {
-            covidData.add(t);});
-        return covidData;
-    }
-
-    public Optional<CovidData> getCountryCovidData(String name) {
-        return(covidDataRepository.findById(name));
+    public CovidData getCountryCovidData(String name) {
+        for (CovidData covidData : allData) {
+            if(covidData.getCountry().equals(name))
+                return covidData;
+        }
+        return null;
     }
 
     public List<CovidData> getAllData() {
@@ -70,7 +59,7 @@ public class CovidDataService {
             String countryName = record.get("Country/Region");
             int latestCases = Integer.parseInt(record.get(record.size() - 1));
             int yesterdaysCases = Integer.parseInt(record.get(record.size() - 2));
-            int newCases = latestCases - yesterdaysCases;
+            int newCases = Math.abs(latestCases - yesterdaysCases);
 
 
             if(!uniqueCountries.contains(countryName)) {
@@ -92,7 +81,6 @@ public class CovidDataService {
         for (CovidData covidData : allData) {
             covidData.setLatestTotalCases(CountryCases.get(covidData.getCountry()));
             covidData.setNewCases(CountryChanges.get(covidData.getCountry()));
-            addCovidData(covidData);
         }
 
     }

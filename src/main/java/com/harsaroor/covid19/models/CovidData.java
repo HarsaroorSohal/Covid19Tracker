@@ -1,15 +1,16 @@
 package com.harsaroor.covid19.models;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-@Entity
 public class CovidData {
 
-    @Id
     private String country;
     private int latestTotalCases;
     private int newCases;
+
+    public CovidData(String country, int latestTotalCases, int newCases) {
+        this.country = country;
+        this.latestTotalCases = latestTotalCases;
+        this.newCases = newCases;
+    }
 
     public CovidData(){
 
