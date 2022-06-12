@@ -14,7 +14,7 @@
 	<name>covid19</name>
 	<description>Sprint Boot Project for Getting Covid19 Count Updates</description>
 	<properties>
-		<java.version>17</java.version>
+		<java.version>11</java.version>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
@@ -53,6 +53,8 @@
 						<exclude>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
+							<version>1.18.24</version>
+							<scope>provided</scope>
 						</exclude>
 					</excludes>
 				</configuration>
