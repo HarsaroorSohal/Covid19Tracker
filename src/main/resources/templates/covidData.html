@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>COVID19 Application</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+   </head>
+
+<body>
+<div class="container center-align">
+    <h1>Global Covid 19 Cases</h1>
+    <p></p>
+
+    <div class="jumbotron">
+        <h1 class="display-3 center-align" th:text="${totalCases}"></h1>
+        <p class="lead center-align">Total cases reported</p>
+    </div>
+
+    <table class="table table-dark table-bordered table-hover">
+        <thead>
+            <tr>
+                <th>Country</th>
+                <th>Total cases reported</th>
+                <th>New cases</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="covidData : ${covidData}">
+            <td th:text="${covidData.country}">-</td>
+            <td th:text="${covidData.latestTotalCases}">0</td>
+            <td th:text="${covidData.newCases}">0</td>
+        </tbody>
+        </tr>
+    </table>
+</div>
+</body>
+<style>
+    .container {
+        padding-top: 50px;
+    }
+    .center-align {
+        text-align: center;
+    }
+</style>
+</html>
